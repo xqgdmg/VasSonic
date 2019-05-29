@@ -58,7 +58,6 @@ import java.util.Map;
 
 public class BrowserActivity extends Activity {
 
-
     public final static String PARAM_URL = "param_url";
 
     public final static String PARAM_MODE = "param_mode";

@@ -59,25 +59,25 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        // clean up cache btn
-        Button btnReset = (Button) findViewById(R.id.btn_reset);
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SonicEngine.getInstance().cleanCache();
-            }
-        });
-
-        // default btn
-        Button btnDefault = (Button) findViewById(R.id.btn_default_mode);
-        btnDefault.setOnClickListener(new View.OnClickListener() {
+        // Load Without Sonic
+        Button btnDefaultMode = (Button) findViewById(R.id.btn_default_mode);
+        btnDefaultMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startBrowserActivity(MODE_DEFAULT);
             }
         });
 
-        // preload btn
+        // Load With Sonic
+        Button btnSonic = (Button) findViewById(R.id.btn_sonic);
+        btnSonic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startBrowserActivity(MODE_SONIC);
+            }
+        });
+
+        // DO Sonic Preload
         Button btnSonicPreload = (Button) findViewById(R.id.btn_sonic_preload);
         btnSonicPreload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,16 +91,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        // sonic mode load btn
-        Button btnSonic = (Button) findViewById(R.id.btn_sonic);
-        btnSonic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startBrowserActivity(MODE_SONIC);
-            }
-        });
-
-        // load sonic with offline cache
+        // Load Sonic With Offline Cach
         Button btnSonicWithOfflineCache = (Button) findViewById(R.id.btn_sonic_with_offline);
         btnSonicWithOfflineCache.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +100,17 @@ public class MainActivity extends Activity {
             }
         });
 
+        // Clean Up Cache
+        Button btnReset = (Button) findViewById(R.id.btn_reset);
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SonicEngine.getInstance().cleanCache();
+            }
+        });
+
         if (hasPermission()) {
-            init();
+            initSonicEngine();
         } else {
             requestPermission();
         }
@@ -133,8 +133,7 @@ public class MainActivity extends Activity {
         DEMO_URL = urlListAdapter.getCheckedUrl();
     }
 
-    private void init() {
-        // init sonic engine
+    private void initSonicEngine() {
         if (!SonicEngine.isGetInstanceAllowed()) {
             SonicEngine.createInstance(new SonicRuntimeImpl(getApplication()), new SonicConfig.Builder().build());
         }
@@ -160,7 +159,7 @@ public class MainActivity extends Activity {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 requestPermission();
             } else {
-                init();
+                initSonicEngine();
             }
             return;
         }
