@@ -37,7 +37,8 @@ public class UrlListAdapter extends BaseAdapter {
     public static final int MODE_NORMAL = 1;
     public static final int MODE_EDIT = 2;
 
-    private static final String DEFAULT_URL = "http://mc.vip.qq.com/demo/indexv3";
+    // http://www.iqiyi.com/ --  http://mc.vip.qq.com/demo/indexv3
+    private static final String DEFAULT_URL = "http://www.iqiyi.com/";
 
     private ArrayList<String> urls;
     private LayoutInflater mInflater;

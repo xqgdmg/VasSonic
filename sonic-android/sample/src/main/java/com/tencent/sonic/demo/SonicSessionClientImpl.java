@@ -46,7 +46,6 @@ public class SonicSessionClientImpl extends SonicSessionClient {
         webView.loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
     }
 
-
     @Override
     public void loadDataWithBaseUrlAndHeader(String baseUrl, String data, String mimeType, String encoding, String historyUrl, HashMap<String, String> headers) {
         loadDataWithBaseUrl(baseUrl, data, mimeType, encoding, historyUrl);

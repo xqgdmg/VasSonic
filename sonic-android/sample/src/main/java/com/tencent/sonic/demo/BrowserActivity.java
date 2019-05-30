@@ -123,12 +123,16 @@ public class BrowserActivity extends Activity {
         // runtime、init configs....
         setContentView(R.layout.activity_browser);
 
+        // 动态刷新
         FloatingActionButton btnFab = (FloatingActionButton) findViewById(R.id.btn_refresh);
         btnFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (sonicSession != null) {
                     sonicSession.refresh();
+                    Toast.makeText(BrowserActivity.this,"sonicSession refresh",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(BrowserActivity.this,"sonicSession is null",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -204,7 +208,9 @@ public class BrowserActivity extends Activity {
         super.onDestroy();
     }
 
-
+    /**
+     * 本地离线html
+     */
     private static class OfflinePkgSessionConnection extends SonicSessionConnection {
 
         private final WeakReference<Context> context;

@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
 
     private static final int PERMISSION_REQUEST_CODE_STORAGE = 1;
 
+    // 被加载的网页
     private String DEMO_URL;
 
     @Override
@@ -59,6 +60,14 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
+        handleClick();
+
+        performPermission();
+
+        changeLoadUrl();
+    }
+
+    private void handleClick() {
         // Load Without Sonic
         Button btnDefaultMode = (Button) findViewById(R.id.btn_default_mode);
         btnDefaultMode.setOnClickListener(new View.OnClickListener() {
@@ -108,15 +117,21 @@ public class MainActivity extends Activity {
                 SonicEngine.getInstance().cleanCache();
             }
         });
+    }
 
+    private void performPermission() {
         if (hasPermission()) {
             initSonicEngine();
         } else {
             requestPermission();
         }
+    }
 
+    /**
+     * 修改被加载的网页
+     */
+    private void changeLoadUrl() {
         final UrlListAdapter urlListAdapter = new UrlListAdapter(MainActivity.this);
-
         FloatingActionButton btnFab = (FloatingActionButton) findViewById(R.id.btn_fab);
         btnFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +148,9 @@ public class MainActivity extends Activity {
         DEMO_URL = urlListAdapter.getCheckedUrl();
     }
 
+    /**
+     * 初始化引擎
+     */
     private void initSonicEngine() {
         if (!SonicEngine.isGetInstanceAllowed()) {
             SonicEngine.createInstance(new SonicRuntimeImpl(getApplication()), new SonicConfig.Builder().build());
@@ -166,6 +184,10 @@ public class MainActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    /**
+     * 跳转 WebView 页面
+     * @param mode 加载方式
+     */
     private void startBrowserActivity(int mode) {
         Intent intent = new Intent(this, BrowserActivity.class);
         intent.putExtra(BrowserActivity.PARAM_URL, DEMO_URL);

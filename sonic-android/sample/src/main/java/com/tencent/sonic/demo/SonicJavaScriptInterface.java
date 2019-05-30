@@ -17,6 +17,7 @@ package com.tencent.sonic.demo;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.tencent.sonic.sdk.SonicDiffDataCallback;
@@ -138,6 +139,7 @@ public class SonicJavaScriptInterface {
             }
 
         }
+        Log.e("chris","out.toString()==" + out.toString());
         return out.toString();
     }
 }
